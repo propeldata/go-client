@@ -13,7 +13,7 @@ import (
 	"github.com/propeldata/go-client"
 )
 ```
-2. Generate an OAuth token. This step requires having a Propel account and an application. Learn more about the APi authentication [here](https://www.propeldata.com/docs/api/authentication).
+2. Generate an OAuth token. This step requires having a Propel account and an application. Learn more about the API authentication [here](https://www.propeldata.com/docs/api/authentication).
 ```go
 oauthClient := client.NewOauthClient()
 

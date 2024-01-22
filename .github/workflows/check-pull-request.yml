@@ -19,3 +19,14 @@ jobs:
 
       - name: Test
         run: go test -v ./...
+
+  lint:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install
+        with:
+          cache_key_suffix: lint
+        # taken from https://golangci-lint.run/usage/install/
+      - run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.54.2
+      - run: yarn lint
