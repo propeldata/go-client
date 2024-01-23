@@ -17,5 +17,5 @@ type RecordsByUniqueIdResponse struct {
 }
 
 type RecordsByUniqueId struct {
-	Records *RecordsByUniqueIdResponse `graphql:"RecordsByUniqueId (input: $input)"`
+	Records *RecordsByUniqueIdResponse `graphql:"recordsByUniqueId (input: $input)"`
 }
