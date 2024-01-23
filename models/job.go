@@ -26,7 +26,7 @@ type CreateDeletionJobInput struct {
 type CreateDeletionJob struct {
 	DeletionJobResponse struct {
 		Job *Job `graphql:"job"`
-	} `graphql:"CreateDeletionJob(input: $input)"`
+	} `graphql:"createDeletionJob(input: $input)"`
 }
 
 type CreateAddColumnToDataPoolJobInput struct {
@@ -39,7 +39,7 @@ type CreateAddColumnToDataPoolJobInput struct {
 type CreateAddColumnToDataPoolJob struct {
 	CreateAddColumnToDataPoolJob struct {
 		Job *Job `graphql:"job"`
-	} `graphql:"CreateAddColumnToDataPoolJob(input: $input)"`
+	} `graphql:"createAddColumnToDataPoolJob(input: $input)"`
 }
 
 type FetchDeletionJob struct {

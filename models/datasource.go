@@ -59,7 +59,7 @@ type DataSource struct {
 type CreateWebhookDataSource struct {
 	DataSourceResponse struct {
 		DataSource *DataSource `graphql:"dataSource"`
-	} `graphql:"CreateWebhookDataSource(input: $input)" json:"dataSourceResponse"`
+	} `graphql:"createWebhookDataSource(input: $input)" json:"dataSourceResponse"`
 }
 
 type FetchDataSourceByName struct {
