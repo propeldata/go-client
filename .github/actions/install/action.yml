@@ -1,0 +1,28 @@
+name: 'prepare'
+description: 'compile the project with all the appropriate caches'
+
+inputs:
+  cache_key_suffix:
+    description: "Suffix to use for the cache key"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Setup Golang"
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache: false
+      env:
+        GOPRIVATE: github.com/propeldata/*
+        GOPROXY: https://proxy.golang.org
+        GOFLAGS: -mod=mod
+
+    - name: "Checkout Propel actions"
+      uses: actions/checkout@v4
+      with:
+        repository: propeldata/actions
+        token: ${{ env.PROPELDATA_CI_TOKEN }}
+        path: actions
