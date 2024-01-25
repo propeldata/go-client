@@ -124,7 +124,7 @@ func (c *ApiClient) CreateDeletionJob(ctx context.Context, dataPoolId string, fi
 
 func (c *ApiClient) FetchDeletionJob(ctx context.Context, id string) (*models.Job, error) {
 	variables := map[string]any{
-		"id": id,
+		"id": graphql.ID(id),
 	}
 
 	query := models.FetchDeletionJob{}
@@ -174,7 +174,7 @@ func (c *ApiClient) CreateAddColumnJob(ctx context.Context, dataPoolId string, c
 
 func (c *ApiClient) FetchAddColumnJob(ctx context.Context, id string) (*models.Job, error) {
 	variables := map[string]any{
-		"id": id,
+		"id": graphql.ID(id),
 	}
 
 	query := models.FetchAddColumnJob{}
