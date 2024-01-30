@@ -11,11 +11,18 @@ import (
 	"github.com/pkg/errors"
 )
 
+type PropelWebhookClient interface {
+	PostEvents(ctx context.Context, input *PostEventsInput) ([]error, error)
+	DeleteEvents(ctx context.Context, input *PostEventsInput) ([]error, error)
+}
+
 type WebhookClient struct {
 	client *http.Client
 }
 
-func NewWebhookClient() *WebhookClient {
+var _ PropelWebhookClient = (*WebhookClient)(nil)
+
+func NewWebhookClient() PropelWebhookClient {
 	client := newHttpClient(Options{
 		Timeout: 10 * time.Second,
 		Retries: 3,

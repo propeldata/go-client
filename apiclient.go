@@ -16,11 +16,24 @@ const (
 	apiURL = "https://api.us-east-2.propeldata.com/graphql"
 )
 
+type PropelApiClient interface {
+	CreateDataSource(ctx context.Context, opts CreateDataSourceOpts) (*models.DataSource, error)
+	FetchDataSource(ctx context.Context, uniqueName string) (*models.DataSource, error)
+	FetchDataPool(ctx context.Context, uniqueName string) (*models.DataPool, error)
+	FetchRecordsByUniqueId(ctx context.Context, dataPoolName string, uniqueIds []string, columnNames []string) (*models.RecordsByUniqueIdResponse, error)
+	CreateDeletionJob(ctx context.Context, dataPoolId string, filters []models.FilterInput) (*models.Job, error)
+	FetchDeletionJob(ctx context.Context, id string) (*models.Job, error)
+	CreateAddColumnJob(ctx context.Context, dataPoolId string, columnName string, columnType string) (*models.Job, error)
+	FetchAddColumnJob(ctx context.Context, id string) (*models.Job, error)
+}
+
 type ApiClient struct {
 	client *graphql.Client
 }
 
-func NewApiClient(accessToken string) *ApiClient {
+var _ PropelApiClient = (*ApiClient)(nil)
+
+func NewApiClient(accessToken string) PropelApiClient {
 	httpClient := newHttpClient(Options{
 		Timeout: 3 * time.Second,
 		Retries: 3,

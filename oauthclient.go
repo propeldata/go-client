@@ -14,6 +14,10 @@ const (
 	oauthURL = "https://auth.us-east-2.propeldata.com/oauth2/token"
 )
 
+type PropelOAuthClient interface {
+	OAuthToken(ctx context.Context, applicationID, applicationSecret string) (*OAuthToken, error)
+}
+
 type OauthClient struct {
 	client *http.Client
 }
@@ -23,7 +27,9 @@ type OAuthToken struct {
 	ExpiresIn   int    `json:"expires_in"`
 }
 
-func NewOauthClient() *OauthClient {
+var _ PropelOAuthClient = (*OauthClient)(nil)
+
+func NewOauthClient() PropelOAuthClient {
 	client := newHttpClient(Options{
 		Timeout: 2 * time.Second,
 		Retries: 3,
