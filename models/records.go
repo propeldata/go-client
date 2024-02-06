@@ -12,8 +12,8 @@ type RecordsByUniqueIdInput struct {
 }
 
 type RecordsByUniqueIdResponse struct {
-	Columns []string   `json:"columns"`
-	Values  [][]string `json:"values"`
+	Columns []string    `json:"columns"`
+	Values  [][]*string `json:"values"`
 }
 
 type RecordsByUniqueId struct {
