@@ -154,6 +154,19 @@ func (c *ApiClient) FetchRecordsByUniqueId(ctx context.Context, dataPoolName str
 	return query.Records, nil
 }
 
+func (c *ApiClient) FetchDataGrid(ctx context.Context, dataGridInput models.DataGridInput) (*models.DataGridResponse, error) {
+
+	variables := map[string]any{"input": dataGridInput}
+
+	query := models.DataGrid{}
+
+	if err := c.client.Query(ctx, &query, variables); err != nil {
+		return nil, err
+	}
+
+	return query.DataGrid, nil
+}
+
 func (c *ApiClient) CreateAddColumnJob(ctx context.Context, dataPoolId string, columnName string, columnType string) (*models.Job, error) {
 	variables := map[string]any{
 		"input": models.CreateAddColumnToDataPoolJobInput{
