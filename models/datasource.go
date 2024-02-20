@@ -17,11 +17,18 @@ type WebhookDataSourceColumnInput struct {
 	JsonProperty string     `json:"jsonProperty"`
 }
 
+type TableSettings struct {
+	PrimaryKey  []string `json:"primaryKey"`
+	PartitionBy []string `json:"partitionBy"`
+	OrderBy     []string `json:"orderBy"`
+}
+
 type WebhookConnectionSettingsInput struct {
-	BasicAuth *HttpBasicAuthInput             `json:"basicAuth,omitempty"`
-	Columns   []*WebhookDataSourceColumnInput `json:"columns,omitempty"`
-	Timestamp string                          `json:"timestamp"`
-	UniqueID  *string                         `json:"uniqueId,omitempty"`
+	BasicAuth     *HttpBasicAuthInput             `json:"basicAuth,omitempty"`
+	Columns       []*WebhookDataSourceColumnInput `json:"columns,omitempty"`
+	Timestamp     string                          `json:"timestamp"`
+	UniqueID      *string                         `json:"uniqueId,omitempty"`
+	TableSettings *TableSettings                  `json:"tableSettings,omitempty"`
 }
 
 type CreateWebhookDataSourceInput struct {
@@ -31,11 +38,12 @@ type CreateWebhookDataSourceInput struct {
 }
 
 type WebhookConnectionSettings struct {
-	WebhookURL string          `json:"webhookUrl"`
-	BasicAuth  *HttpBasicAuth  `json:"basicAuth"`
-	Columns    []WebhookColumn `json:"columns"`
-	Timestamp  string          `json:"timestamp"`
-	UniqueID   string          `json:"uniqueID"`
+	WebhookURL    string          `json:"webhookUrl"`
+	BasicAuth     *HttpBasicAuth  `json:"basicAuth"`
+	Columns       []WebhookColumn `json:"columns"`
+	Timestamp     string          `json:"timestamp,omitempty"`
+	UniqueID      string          `json:"uniqueID,omitempty"`
+	TableSettings *TableSettings  `json:"tableSettings,omitempty"`
 }
 
 type WebhookColumn struct {
