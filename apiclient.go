@@ -49,11 +49,12 @@ func (wh *withHeaders) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 type CreateDataSourceOpts struct {
-	Name      string
-	BasicAuth *models.HttpBasicAuthInput
-	Columns   []*models.WebhookDataSourceColumnInput
-	Timestamp string
-	UniqueID  string
+	Name          string
+	BasicAuth     *models.HttpBasicAuthInput
+	Columns       []*models.WebhookDataSourceColumnInput
+	Timestamp     string
+	UniqueID      *string
+	TableSettings *models.TableSettingsInput
 }
 
 func (c *ApiClient) CreateDataSource(ctx context.Context, opts CreateDataSourceOpts) (*models.DataSource, error) {
@@ -62,10 +63,11 @@ func (c *ApiClient) CreateDataSource(ctx context.Context, opts CreateDataSourceO
 			UniqueName:  opts.Name,
 			Description: "Fivetran Propel destination",
 			ConnectionSettings: models.WebhookConnectionSettingsInput{
-				BasicAuth: opts.BasicAuth,
-				Columns:   opts.Columns,
-				Timestamp: opts.Timestamp,
-				UniqueID:  &opts.UniqueID,
+				BasicAuth:     opts.BasicAuth,
+				Columns:       opts.Columns,
+				Timestamp:     opts.Timestamp,
+				UniqueID:      opts.UniqueID,
+				TableSettings: opts.TableSettings,
 			},
 		},
 	}
