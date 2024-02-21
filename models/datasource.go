@@ -1,5 +1,12 @@
 package models
 
+type TableEngine string
+
+const (
+	TableEngineReplacingMergeTree TableEngine = "REPLACING_MERGE_TREE"
+	TableEngineMergeTree          TableEngine = "MERGE_TREE"
+)
+
 type HttpBasicAuthInput struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
@@ -17,10 +24,23 @@ type WebhookDataSourceColumnInput struct {
 	JsonProperty string     `json:"jsonProperty"`
 }
 
-type TableSettings struct {
-	PrimaryKey  []string `json:"primaryKey"`
-	PartitionBy []string `json:"partitionBy"`
-	OrderBy     []string `json:"orderBy"`
+type ReplacingMergeTree struct {
+	Type TableEngine `json:"type"`
+	Ver  string      `json:"ver"`
+}
+
+type MergeTree struct {
+	Type TableEngine `json:"type"`
+}
+
+type TableEngineInput struct {
+	ReplacingMergeTree *ReplacingMergeTree `json:"replacingMergeTree,omitempty"`
+	MergeTree          *MergeTree          `json:"mergeTree,omitempty"`
+}
+
+type TableSettingsInput struct {
+	TableSettings
+	Engine *TableEngineInput `json:"engine,omitempty"`
 }
 
 type WebhookConnectionSettingsInput struct {
@@ -28,13 +48,19 @@ type WebhookConnectionSettingsInput struct {
 	Columns       []*WebhookDataSourceColumnInput `json:"columns,omitempty"`
 	Timestamp     string                          `json:"timestamp"`
 	UniqueID      *string                         `json:"uniqueId,omitempty"`
-	TableSettings *TableSettings                  `json:"tableSettings,omitempty"`
+	TableSettings *TableSettingsInput             `json:"tableSettings,omitempty"`
 }
 
 type CreateWebhookDataSourceInput struct {
 	UniqueName         string                         `json:"uniqueName,omitempty"`
 	Description        string                         `json:"description,omitempty"`
 	ConnectionSettings WebhookConnectionSettingsInput `json:"connectionSettings"`
+}
+
+type TableSettings struct {
+	PrimaryKey  []string `json:"primaryKey"`
+	PartitionBy []string `json:"partitionBy"`
+	OrderBy     []string `json:"orderBy"`
 }
 
 type WebhookConnectionSettings struct {

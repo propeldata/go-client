@@ -54,7 +54,7 @@ type CreateDataSourceOpts struct {
 	Columns       []*models.WebhookDataSourceColumnInput
 	Timestamp     string
 	UniqueID      *string
-	TableSettings *models.TableSettings
+	TableSettings *models.TableSettingsInput
 }
 
 func (c *ApiClient) CreateDataSource(ctx context.Context, opts CreateDataSourceOpts) (*models.DataSource, error) {
