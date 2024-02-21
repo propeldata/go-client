@@ -46,7 +46,7 @@ type TableSettingsInput struct {
 type WebhookConnectionSettingsInput struct {
 	BasicAuth     *HttpBasicAuthInput             `json:"basicAuth,omitempty"`
 	Columns       []*WebhookDataSourceColumnInput `json:"columns,omitempty"`
-	Timestamp     string                          `json:"timestamp"`
+	Timestamp     *string                         `json:"timestamp,omitempty"`
 	UniqueID      *string                         `json:"uniqueId,omitempty"`
 	TableSettings *TableSettingsInput             `json:"tableSettings,omitempty"`
 }
