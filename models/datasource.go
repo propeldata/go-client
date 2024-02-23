@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type TableEngine string
 
 const (
@@ -88,6 +90,7 @@ type DataSource struct {
 	Status             string             `json:"status"`
 	UniqueName         string             `json:"uniqueName"`
 	ConnectionSettings ConnectionSettings `json:"connectionSettings"`
+	CreatedAt          time.Time          `json:"createdAt"`
 }
 
 type CreateWebhookDataSource struct {

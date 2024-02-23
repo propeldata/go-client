@@ -13,9 +13,11 @@ type JobError struct {
 }
 
 type FilterInput struct {
-	Column   string `json:"column"`
-	Operator string `json:"operator"`
-	Value    string `json:"value"`
+	Column   string        `json:"column"`
+	Operator string        `json:"operator"`
+	Value    string        `json:"value"`
+	And      []FilterInput `json:"and,omitempty"`
+	Or       []FilterInput `json:"or,omitempty"`
 }
 
 type CreateDeletionJobInput struct {
