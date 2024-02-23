@@ -15,7 +15,7 @@ type JobError struct {
 type FilterInput struct {
 	Column   string        `json:"column"`
 	Operator string        `json:"operator"`
-	Value    string        `json:"value"`
+	Value    *string       `json:"value,omitempty"`
 	And      []FilterInput `json:"and,omitempty"`
 	Or       []FilterInput `json:"or,omitempty"`
 }
