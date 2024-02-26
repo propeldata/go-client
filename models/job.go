@@ -12,14 +12,6 @@ type JobError struct {
 	Code    int    `json:"code"`
 }
 
-type FilterInput struct {
-	Column   string        `json:"column"`
-	Operator string        `json:"operator"`
-	Value    *string       `json:"value,omitempty"`
-	And      []FilterInput `json:"and,omitempty"`
-	Or       []FilterInput `json:"or,omitempty"`
-}
-
 type CreateDeletionJobInput struct {
 	DataPool string        `json:"dataPool"`
 	Filters  []FilterInput `json:"filters"`
