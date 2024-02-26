@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type TableEngine string
 
 const (
@@ -46,7 +48,7 @@ type TableSettingsInput struct {
 type WebhookConnectionSettingsInput struct {
 	BasicAuth     *HttpBasicAuthInput             `json:"basicAuth,omitempty"`
 	Columns       []*WebhookDataSourceColumnInput `json:"columns,omitempty"`
-	Timestamp     string                          `json:"timestamp"`
+	Timestamp     *string                         `json:"timestamp,omitempty"`
 	UniqueID      *string                         `json:"uniqueId,omitempty"`
 	TableSettings *TableSettingsInput             `json:"tableSettings,omitempty"`
 }
@@ -88,6 +90,7 @@ type DataSource struct {
 	Status             string             `json:"status"`
 	UniqueName         string             `json:"uniqueName"`
 	ConnectionSettings ConnectionSettings `json:"connectionSettings"`
+	CreatedAt          time.Time          `json:"createdAt"`
 }
 
 type CreateWebhookDataSource struct {

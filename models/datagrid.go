@@ -26,6 +26,7 @@ type DataGridInput struct {
 	Before    string         `json:"before,omitempty"`
 	Sort      SortOrder      `json:"sort,omitempty"`
 	TimeRange TimeRangeInput `json:"timeRange,omitempty"`
+	Filters   []FilterInput  `json:"filters,omitempty"`
 }
 
 type PageInfoResponse struct {

@@ -52,7 +52,7 @@ type CreateDataSourceOpts struct {
 	Name          string
 	BasicAuth     *models.HttpBasicAuthInput
 	Columns       []*models.WebhookDataSourceColumnInput
-	Timestamp     string
+	Timestamp     *string
 	UniqueID      *string
 	TableSettings *models.TableSettingsInput
 }
