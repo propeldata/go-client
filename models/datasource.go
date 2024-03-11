@@ -41,8 +41,10 @@ type TableEngineInput struct {
 }
 
 type TableSettingsInput struct {
-	TableSettings
-	Engine *TableEngineInput `json:"engine,omitempty"`
+	PrimaryKey  []string          `json:"primaryKey"`
+	PartitionBy []string          `json:"partitionBy"`
+	OrderBy     []string          `json:"orderBy"`
+	Engine      *TableEngineInput `json:"engine,omitempty"`
 }
 
 type WebhookConnectionSettingsInput struct {
@@ -59,10 +61,19 @@ type CreateWebhookDataSourceInput struct {
 	ConnectionSettings WebhookConnectionSettingsInput `json:"connectionSettings"`
 }
 
+type ReplacingMergeTreeTableEngine struct {
+	Ver string `json:"ver"`
+}
+
+type Engine struct {
+	ReplacingMergeTreeTableEngine ReplacingMergeTreeTableEngine `graphql:"... on ReplacingMergeTreeTableEngine"`
+}
+
 type TableSettings struct {
 	PrimaryKey  []string `json:"primaryKey"`
 	PartitionBy []string `json:"partitionBy"`
 	OrderBy     []string `json:"orderBy"`
+	Engine      *Engine  `json:"engine,omitempty"`
 }
 
 type WebhookConnectionSettings struct {
