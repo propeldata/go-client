@@ -18,15 +18,15 @@ type TimeRangeInput struct {
 }
 
 type DataGridInput struct {
-	DataPool  DataPoolInput  `json:"dataPool"`
-	Columns   []string       `json:"columns"`
-	First     int            `json:"first,omitempty"`
-	After     string         `json:"after,omitempty"`
-	Last      int            `json:"last,omitempty"`
-	Before    string         `json:"before,omitempty"`
-	Sort      SortOrder      `json:"sort,omitempty"`
-	TimeRange TimeRangeInput `json:"timeRange,omitempty"`
-	Filters   []FilterInput  `json:"filters,omitempty"`
+	DataPool  DataPoolInput   `json:"dataPool"`
+	Columns   []string        `json:"columns"`
+	First     int             `json:"first,omitempty"`
+	After     string          `json:"after,omitempty"`
+	Last      int             `json:"last,omitempty"`
+	Before    string          `json:"before,omitempty"`
+	Sort      SortOrder       `json:"sort,omitempty"`
+	TimeRange *TimeRangeInput `json:"timeRange,omitempty"`
+	Filters   []FilterInput   `json:"filters,omitempty"`
 }
 
 type PageInfoResponse struct {
