@@ -36,10 +36,31 @@ type CreateAddColumnToDataPoolJob struct {
 	} `graphql:"createAddColumnToDataPoolJob(input: $input)"`
 }
 
+type SetColumnInput struct {
+	Column     string `json:"column"`
+	Expression string `json:"expression"`
+}
+
+type CreateUpdateDataPoolRecordsJobInput struct {
+	DataPool string           `json:"dataPool"`
+	Filters  []FilterInput    `json:"filters"`
+	Set      []SetColumnInput `json:"set"`
+}
+
+type CreateUpdateDataPoolRecordsJob struct {
+	CreateUpdateDataPoolRecordsJob struct {
+		Job *Job `graphql:"job"`
+	} `graphql:"createUpdateDataPoolRecordsJob(input: $input)"`
+}
+
 type FetchDeletionJob struct {
 	Job *Job `graphql:"deletionJob (id: $id)"`
 }
 
 type FetchAddColumnJob struct {
 	Job *Job `graphql:"addColumnToDataPoolJob (id: $id)"`
+}
+
+type FetchUpdateJob struct {
+	Job *Job `graphql:"updateDataPoolRecordsJob (id: $id)"`
 }
