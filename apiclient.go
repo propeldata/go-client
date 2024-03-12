@@ -124,12 +124,43 @@ func (c *ApiClient) CreateDeletionJob(ctx context.Context, dataPoolId string, fi
 	return mutation.DeletionJobResponse.Job, nil
 }
 
+func (c *ApiClient) CreateUpdateJob(ctx context.Context, dataPoolId string, filters []models.FilterInput, setExpression []models.SetColumnInput) (*models.Job, error) {
+	variables := map[string]any{
+		"input": models.CreateUpdateDataPoolRecordsJobInput{
+			DataPool: dataPoolId,
+			Filters:  filters,
+			Set:      setExpression,
+		},
+	}
+
+	var mutation models.CreateUpdateDataPoolRecordsJob
+	if err := c.client.Mutate(ctx, &mutation, variables); err != nil {
+		return nil, err
+	}
+
+	return mutation.CreateUpdateDataPoolRecordsJob.Job, nil
+}
+
 func (c *ApiClient) FetchDeletionJob(ctx context.Context, id string) (*models.Job, error) {
 	variables := map[string]any{
 		"id": graphql.ID(id),
 	}
 
 	query := models.FetchDeletionJob{}
+
+	if err := c.client.Query(ctx, &query, variables); err != nil {
+		return nil, err
+	}
+
+	return query.Job, nil
+}
+
+func (c *ApiClient) FetchUpdateJob(ctx context.Context, id string) (*models.Job, error) {
+	variables := map[string]any{
+		"id": graphql.ID(id),
+	}
+
+	query := models.FetchUpdateJob{}
 
 	if err := c.client.Query(ctx, &query, variables); err != nil {
 		return nil, err
