@@ -89,12 +89,12 @@ func ConvertStringToJSONValue(value string, propelType PropelType) (any, error) 
 	case TimestampPropelType:
 		return value, nil
 	case JsonPropelType:
-		var jsonData map[string]any
-		if err := json.Unmarshal([]byte(value), &jsonData); err != nil {
-			return nil, err
+		var jsonData any
+		if err := json.Unmarshal([]byte(value), &jsonData); err == nil {
+			return jsonData, nil
 		}
 
-		return jsonData, nil
+		return value, nil // JSON propel type accepts any kind of data
 	}
 
 	return nil, fmt.Errorf("Propel type %q not supported", propelType)
