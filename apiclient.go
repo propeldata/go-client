@@ -94,6 +94,20 @@ func (c *ApiClient) FetchDataSource(ctx context.Context, uniqueName string) (*mo
 	return query.DataSource, nil
 }
 
+func (c *ApiClient) DeleteDataSource(ctx context.Context, uniqueName string) (string, error) {
+	variables := map[string]any{
+		"dataSourceUniqueName": uniqueName,
+	}
+
+	query := models.DeleteDataSourceByName{}
+
+	if err := c.client.Mutate(ctx, &query, variables); err != nil {
+		return "", err
+	}
+
+	return query.ID, nil
+}
+
 func (c *ApiClient) FetchDataPool(ctx context.Context, uniqueName string) (*models.DataPool, error) {
 	variables := map[string]any{
 		"dataPoolUniqueName": uniqueName,
@@ -106,6 +120,20 @@ func (c *ApiClient) FetchDataPool(ctx context.Context, uniqueName string) (*mode
 	}
 
 	return query.DataPool, nil
+}
+
+func (c *ApiClient) DeleteDataPool(ctx context.Context, uniqueName string) (string, error) {
+	variables := map[string]any{
+		"dataPoolUniqueName": uniqueName,
+	}
+
+	query := models.DeleteDataPoolByName{}
+
+	if err := c.client.Mutate(ctx, &query, variables); err != nil {
+		return "", err
+	}
+
+	return query.ID, nil
 }
 
 func (c *ApiClient) CreateDeletionJob(ctx context.Context, dataPoolId string, filters []models.FilterInput) (*models.Job, error) {

@@ -113,3 +113,7 @@ type CreateWebhookDataSource struct {
 type FetchDataSourceByName struct {
 	DataSource *DataSource `graphql:"dataSourceByName (uniqueName: $dataSourceUniqueName)"`
 }
+
+type DeleteDataSourceByName struct {
+	ID string `graphql:"deleteDataSourceByName (uniqueName: $dataSourceUniqueName)"`
+}
