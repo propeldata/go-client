@@ -4,11 +4,10 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
-
-	"github.com/pkg/errors"
 )
 
 type WebhookClient struct {
@@ -37,6 +36,10 @@ type PostEventResponse struct {
 	StatusMessage string `json:"statusMessage"`
 }
 
+type PostEventErrorResponse struct {
+	Errors string `json:"errors"`
+}
+
 func (c *WebhookClient) PostEvents(ctx context.Context, input *PostEventsInput) ([]error, error) {
 	return c.publishEvents(ctx, http.MethodPost, input)
 }
@@ -62,6 +65,15 @@ func (c *WebhookClient) publishEvents(ctx context.Context, method string, input 
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to publish events to %s: %w", input.WebhookURL, err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		var errorResponse PostEventErrorResponse
+		if err := json.NewDecoder(resp.Body).Decode(&errorResponse); err != nil {
+			return nil, fmt.Errorf("failed to decode error response from %s: %w", input.WebhookURL, err)
+		}
+
+		return nil, fmt.Errorf("failed to publish events to %s: %s", input.WebhookURL, errorResponse.Errors)
 	}
 
 	var eventsResponse []PostEventResponse

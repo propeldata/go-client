@@ -2,12 +2,12 @@ package client
 
 import (
 	"context"
+	"errors"
 	"net/http"
 	"strings"
 	"time"
 
 	"github.com/hasura/go-graphql-client"
-	"github.com/pkg/errors"
 
 	"github.com/propeldata/go-client/models"
 )
